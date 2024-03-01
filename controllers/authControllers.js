@@ -1,5 +1,6 @@
 import { trycatchFunc } from "../helpers/trycatchFunc.js";
 import { logoutUserDB } from "../services/authServices.js";
+import * as authServices from "../services/authServices.js";
 
 export const registerUser = trycatchFunc(async (req, res) => {});
 
@@ -17,3 +18,11 @@ export const logoutUser = trycatchFunc(async (req, res) => {
 });
 
 export const updateUser = trycatchFunc(async (req, res) => {});
+
+export const sendMail = trycatchFunc(async (req, res) => {
+  const { email, comment } = req.body;
+
+  await authServices.sendMail(email, comment);
+
+  res.json({ message: "Message was sent successfully!" });
+});
