@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
+import authRouter from "./routes/authRouter.js";
 import boardsRouter from "./routes/boardsRouter.js";
 
 dotenv.config();
@@ -12,7 +13,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 
-// app.use("/users", authRouter);
+app.use("/users", authRouter);
 app.use("/boards", boardsRouter);
 
 app.use((_, res) => {
