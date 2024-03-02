@@ -1,14 +1,14 @@
 import { Schema, model } from "mongoose";
 
-const boardShcema = new Schema(
+const colomnSchema = Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
     },
-    background: {
-      type: String,
-      default: "default.jpg",
+    boardId: {
+      type: Schema.Types.ObjectId,
+      ref: "Board",
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -19,4 +19,4 @@ const boardShcema = new Schema(
   { versionKey: false }
 );
 
-export const BoardModel = model("Board", boardShcema);
+export const ColomnModel = model("Colomn", colomnSchema);

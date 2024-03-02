@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import sendgrid from "@sendgrid/mail";
 import jwt from "jsonwebtoken";
+import { v2 as cloudinary } from "cloudinary";
 
 const { SENDGRID_API_KEY, SECRET_KEY } = process.env;
 
@@ -59,4 +60,33 @@ export const sendMail = async (email, comment) => {
 
   await sendgrid.send(helpEmail);
   return true;
+};
+
+//   cloud_name: "dna5uh3r0",
+//     api_key: "116844259184423",
+//       api_secret: "aZa8sdqU44SyirU3ogCS0VKQLSY",
+
+const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
+  process.env;
+
+export const saveAvatar = async (tmpUpload, _id) => {
+  cloudinary.config({
+    cloud_name: CLOUDINARY_CLOUD_NAME,
+    api_key: CLOUDINARY_API_KEY,
+    api_secret: CLOUDINARY_API_SECRET,
+  });
+  const result = await cloudinary.uploader.upload(tmpUpload);
+  return result.url;
+};
+
+export const updateUserData = async (userId, updatedData) => {
+  try {
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, updatedData, {
+      new: true,
+    });
+
+    return updatedUser || null;
+  } catch (err) {
+    console.log(err);
+  }
 };

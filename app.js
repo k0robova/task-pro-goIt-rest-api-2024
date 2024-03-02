@@ -4,7 +4,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRouter.js";
 import boardsRouter from "./routes/boardsRouter.js";
+
 import themeRouter from "./routes/themeRouter.js";
+import cardRouter from "./routes/cardsRouter.js";
+import colomnRouter from "./routes/colomnRouter.js";
+
 
 dotenv.config();
 
@@ -17,6 +21,9 @@ app.use(express.json());
 app.use("/users", authRouter);
 app.use("/boards", boardsRouter);
 app.use("/theme", themeRouter);
+app.use("/colomns", colomnRouter);
+app.use("/cards", cardRouter);
+
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
