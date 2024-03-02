@@ -1,6 +1,5 @@
 import { HttpError } from "../helpers/HttpError.js";
 import { trycatchFunc } from "../helpers/trycatchFunc.js";
-import { logoutUserDB } from "../services/authServices.js";
 import * as authServices from "../services/authServices.js";
 
 export const registerUser = trycatchFunc(async (req, res) => {
@@ -48,11 +47,33 @@ export const getCurrentUser = trycatchFunc(async (req, res) => {
 
 export const logoutUser = trycatchFunc(async (req, res) => {
   const { _id } = req.user;
-  const user = logoutUserDB(_id, { token: "" });
+  const user = await authServices.logoutUserDB(_id, { token: "" });
   res.status(204).json({});
 });
 
-export const updateUser = trycatchFunc(async (req, res) => {});
+export const updateUser = trycatchFunc(async (req, res) => {
+  const { _id } = req.user;
+
+  let avatarURL;
+
+  if (req.file) {
+    const { path: tmpUpload } = req.file;
+    avatarURL = await authServices.saveAvatar(tmpUpload, _id);
+  }
+  // Перевірка наявності даних користувача в запиті
+  if (req.body) {
+    const { name, email, password } = req.body;
+    const updatedUser = await authServices.updateUserData(_id, {
+      name,
+      email,
+      password,
+      avatarURL,
+    });
+    res.json({
+      updatedUser,
+    });
+  }
+});
 
 export const sendMail = trycatchFunc(async (req, res) => {
   const { email, comment } = req.body;
