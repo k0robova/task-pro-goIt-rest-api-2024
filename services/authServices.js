@@ -1,4 +1,3 @@
-// const { SECRET_KEY } = dotenvConfig;
 import { UserModel } from "../models/userModel.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -7,10 +6,10 @@ import jwt from "jsonwebtoken";
 
 const { SENDGRID_API_KEY, SECRET_KEY } = process.env;
 
-export const checkIfUserExists = async email =>
+export const checkIfUserExists = async (email) =>
   await UserModel.findOne({ email });
 
-export const registerUserDB = async userData => {
+export const registerUserDB = async (userData) => {
   const user = new UserModel({ ...userData });
 
   await user.hashPassword();
@@ -28,7 +27,7 @@ export const registerUserDB = async userData => {
   return newUser;
 };
 
-export const loginUserDB = async userId => {
+export const loginUserDB = async (userId) => {
   const token = jwt.sign({ id: userId }, SECRET_KEY, { expiresIn: "5h" });
 
   const newUser = await UserModel.findByIdAndUpdate(
@@ -45,7 +44,7 @@ export const logoutUserDB = async (userId, token) => {
   return user;
 };
 
-export const updateUserDB = async formData => {};
+export const updateUserDB = async (formData) => {};
 
 export const sendMail = async (email, comment) => {
   const helpEmail = {
