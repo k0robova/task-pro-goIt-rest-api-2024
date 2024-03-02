@@ -3,14 +3,6 @@ import { BoardModel } from "../models/boardModel.js";
 
 export const getAllBoards = (owner) => BoardModel.find({ owner });
 
-export const getBoard = async (id, owner) => {
-  const board = await BoardModel.findOne({ _id: id, owner });
-
-  if (!board) {
-    throw HttpError(404);
-  }
-};
-
 export const addBoard = async (owner, data) => {
   const exist = await BoardModel.findOne({ name: data.name });
 
@@ -46,7 +38,5 @@ export const removeBoard = async (owner, boardId) => {
     owner,
   });
 
-  if (!deletedBoard) {
-    throw HttpError(404);
-  }
+  return deletedBoard;
 };
