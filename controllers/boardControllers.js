@@ -1,15 +1,10 @@
 import { trycatchFunc } from "../helpers/trycatchFunc.js";
 import { HttpError } from "../helpers/HttpError.js";
-import {
-  addBoard,
-  getAllBoards,
-  removeBoard,
-  updateBoard,
-} from "../services/boardService.js";
+import * as boardServices from "../services/boardService.js";
 
 export const getBoards = trycatchFunc(async (req, res) => {
   const { _id: owner } = req.user;
-  const boards = await getAllBoards(owner);
+  const boards = await boardServices.getAllBoards(owner);
   res.json(boards);
 });
 
@@ -17,7 +12,7 @@ export const deleteBoard = trycatchFunc(async (req, res) => {
   const id = req.params.boardId;
   const { _id: owner } = req.user;
 
-  const board = await removeBoard(owner, id);
+  const board = await boardServices.removeBoard(owner, id);
 
   if (!board) {
     throw HttpError(404, `Board with id ${id} not found`);
@@ -29,7 +24,7 @@ export const deleteBoard = trycatchFunc(async (req, res) => {
 export const createBoard = trycatchFunc(async (req, res) => {
   const { _id: owner } = req.user;
 
-  const newBoard = await addBoard(owner, req.body);
+  const newBoard = await boardServices.addBoard(owner, req.body);
 
   if (newBoard.error) {
     throw HttpError(409, newBoard.error);
@@ -47,7 +42,7 @@ export const updateBoardCtrl = trycatchFunc(async (req, res) => {
     throw HttpError(400, "missing field");
   }
 
-  const updatedBoard = await updateBoard(id, owner, body);
+  const updatedBoard = await boardServices.updateBoard(id, owner, body);
 
   if (!updatedBoard) {
     throw HttpError(404, `Board with id ${id} not found`);

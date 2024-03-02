@@ -1,14 +1,14 @@
 import Joi from "joi";
 
-export const createColomnSchema = Joi.object({
+export const createColumnSchema = Joi.object({
   title: Joi.string().required().label("Title").messages({
-    "string.empty": '"title" cannot be an empty field',
-    "any.required": 'missing required field "title"',
+    "string.empty": '"Title" cannot be an empty field',
+    "any.required": 'Missing required field "Title"',
   }),
 });
 
-export const updateColomnSchema = Joi.object({
+export const updateColumnSchema = Joi.object({
   title: Joi.string().label("Title").messages({
-    "string.empty": '"title" не може бути порожнім полем',
+    "string.empty": '"Title" cannot be an empty field',
   }),
 });

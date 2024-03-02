@@ -1,35 +1,30 @@
 import express from "express";
 import { authenticate } from "../middlewares/authenticate.js";
 import { validateBody } from "../middlewares/validateBody.js";
-import { isValidCardId, isValidColomnsId } from "../middlewares/isValidId.js";
-import { cardSchema, updateCardSchema } from "../schemas/cardSchema.js";
-import {
-  getCards,
-  createCard,
-  deleteCard,
-  updateCardCtrl,
-} from "../controllers/cardControllers.js";
+import { isValidId } from "../middlewares/isValidId.js";
+import * as schemas from "../schemas/cardSchema.js";
+import * as cardServices from "../controllers/cardControllers.js";
 
 const cardRouter = express.Router();
 
-cardRouter.get("/", authenticate, getCards);
+cardRouter.get("/", authenticate, cardServices.getCards);
 
 cardRouter.post(
   "/:colomnId",
   authenticate,
-  isValidColomnsId,
-  validateBody(cardSchema),
-  createCard
+  isValidId,
+  validateBody(schemas.cardSchema),
+  cardServices.createCard
 );
 
 cardRouter.put(
   "/:cardId",
   authenticate,
-  isValidCardId,
-  validateBody(updateCardSchema),
-  updateCardCtrl
+  isValidId,
+  validateBody(schemas.updateCardSchema),
+  cardServices.updateCardCtrl
 );
 
-cardRouter.delete("/:cardId", authenticate, isValidCardId, deleteCard);
+cardRouter.delete("/:cardId", authenticate, isValidId, cardServices.deleteCard);
 
 export default cardRouter;
