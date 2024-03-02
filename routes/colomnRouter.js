@@ -1,38 +1,40 @@
 import express from "express";
 import { authenticate } from "../middlewares/authenticate.js";
-import {
-  getColomns,
-  deleteColomn,
-  updateColomnCtrl,
-  createColomn,
-} from "../controllers/colomnContollers.js";
+import * as colomnControllers from "../controllers/colomnContollers.js";
 import { validateBody } from "../middlewares/validateBody.js";
-import {
-  createColomnSchema,
-  updateColomnSchema,
-} from "../schemas/colomnSchema.js";
-import { isValidColomnsId, isValidBoardsId } from "../middlewares/isValidId.js";
+import * as schemas from "../schemas/colomnSchema.js";
+import { isValidId } from "../middlewares/isValidId.js";
 
 const colomnRouter = express.Router();
 
-colomnRouter.get("/:boardId", authenticate, isValidBoardsId, getColomns);
+colomnRouter.get(
+  "/:boardId",
+  authenticate,
+  isValidId,
+  colomnControllers.getColomns
+);
 
 colomnRouter.post(
   "/:boardId",
   authenticate,
-  isValidBoardsId,
-  validateBody(createColomnSchema),
-  createColomn
+  isValidId,
+  validateBody(schemas.createColumnSchema),
+  colomnControllers.createColomn
 );
 
 colomnRouter.put(
   "/:colomnId",
   authenticate,
-  isValidColomnsId,
-  validateBody(updateColomnSchema),
-  updateColomnCtrl
+  isValidId,
+  validateBody(schemas.updateColumnSchema),
+  colomnControllers.updateColomnCtrl
 );
 
-colomnRouter.delete("/:colomnId", authenticate, isValidColomnsId, deleteColomn);
+colomnRouter.delete(
+  "/:colomnId",
+  authenticate,
+  isValidId,
+  colomnControllers.deleteColomn
+);
 
 export default colomnRouter;

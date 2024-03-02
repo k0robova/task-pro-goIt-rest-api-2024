@@ -12,7 +12,7 @@ export const getAllColomns = async (id, owner) => {
 };
 
 export const addColomn = async (boardId, owner, data) => {
-  const exist = await ColomnModel.findOne({ title: data.title });
+  const exist = await ColomnModel.findOne({ boardId, title: data.title });
 
   if (exist) {
     return {

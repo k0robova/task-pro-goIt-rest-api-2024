@@ -1,17 +1,12 @@
 import { trycatchFunc } from "../helpers/trycatchFunc.js";
 import { HttpError } from "../helpers/HttpError.js";
-import {
-  addColomn,
-  getAllColomns,
-  removeColomn,
-  updateColomn,
-} from "../services/colomnServices.js";
+import * as colomnServices from "../services/colomnServices.js";
 
 export const getColomns = trycatchFunc(async (req, res) => {
   const id = req.params.boardId;
   const { _id: owner } = req.user;
 
-  const colomns = await getAllColomns(id, owner);
+  const colomns = await colomnServices.getAllColomns(id, owner);
 
   res.json(colomns);
 });
@@ -20,7 +15,7 @@ export const createColomn = trycatchFunc(async (req, res) => {
   const id = req.params.boardId;
   const { _id: owner } = req.user;
 
-  const newColomn = await addColomn(id, owner, req.body);
+  const newColomn = await colomnServices.addColomn(id, owner, req.body);
 
   if (newColomn.error) {
     throw HttpError(409, newColomn.error);
@@ -33,7 +28,7 @@ export const deleteColomn = trycatchFunc(async (req, res) => {
   const id = req.params.colomnId;
   const { _id: owner } = req.user;
 
-  const colomn = await removeColomn(id, owner);
+  const colomn = await colomnServices.removeColomn(id, owner);
 
   if (!colomn) {
     throw HttpError(404, `Colomn with id ${id} not found`);
@@ -51,7 +46,7 @@ export const updateColomnCtrl = trycatchFunc(async (req, res) => {
     throw HttpError(400, "missing field");
   }
 
-  const updatedColomn = await updateColomn(id, owner, body);
+  const updatedColomn = await colomnServices.updateColomn(id, owner, body);
 
   if (!updatedColomn) {
     throw HttpError(404, `Colomn with id ${id} not found`);
