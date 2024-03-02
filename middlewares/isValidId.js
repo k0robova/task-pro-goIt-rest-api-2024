@@ -12,6 +12,10 @@ export const isValidBoardsId = (req, _, next) => {
   next();
 };
 
+
+export const isValidThemeId = (req, _, next) => {
+  const id = req.params.id;
+
 export const isValidColomnsId = (req, _, next) => {
   const id = req.params.colomnId;
 
@@ -25,6 +29,7 @@ export const isValidColomnsId = (req, _, next) => {
 
 export const isValidCardId = (req, _, next) => {
   const id = req.params.cardId;
+
 
   if (!isValidObjectId(id)) {
     next(HttpError(400, `Requested id(${id}) is invalid`));

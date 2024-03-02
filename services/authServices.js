@@ -1,4 +1,3 @@
-// const { SECRET_KEY } = dotenvConfig;
 import { UserModel } from "../models/userModel.js";
 import dotenv from "dotenv";
 dotenv.config();
