@@ -3,7 +3,6 @@ import { authenticate } from "../middlewares/authenticate.js";
 import {
   createBoard,
   deleteBoard,
-  getBoardById,
   getBoards,
   updateBoardCtrl,
 } from "../controllers/boardControllers.js";
@@ -12,13 +11,11 @@ import {
   createBoardSchema,
   updateBoardSchema,
 } from "../schemas/boardSchema.js";
-import { isValidId } from "../middlewares/isValidId.js";
+import { isValidBoardsId } from "../middlewares/isValidId.js";
 
 const boardsRouter = express.Router();
 
 boardsRouter.get("/", authenticate, getBoards);
-
-boardsRouter.get("/:boardId", authenticate, isValidId, getBoardById);
 
 boardsRouter.post(
   "/",
@@ -30,11 +27,11 @@ boardsRouter.post(
 boardsRouter.put(
   "/:boardId",
   authenticate,
-  isValidId,
+  isValidBoardsId,
   validateBody(updateBoardSchema),
   updateBoardCtrl
 );
 
-boardsRouter.delete("/:boardId", authenticate, isValidId, deleteBoard);
+boardsRouter.delete("/:boardId", authenticate, isValidBoardsId, deleteBoard);
 
 export default boardsRouter;

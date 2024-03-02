@@ -3,24 +3,14 @@ import { HttpError } from "../helpers/HttpError.js";
 import {
   addBoard,
   getAllBoards,
-  getBoard,
   removeBoard,
   updateBoard,
-} from "../services/boardService.js";
+} from "../services/boardServices.js";
 
 export const getBoards = trycatchFunc(async (req, res) => {
   const { _id: owner } = req.user;
   const boards = await getAllBoards(owner);
   res.json(boards);
-});
-
-export const getBoardById = trycatchFunc(async (req, res) => {
-  const id = req.params.boardId;
-  const { _id: owner } = req.user;
-
-  const board = await getBoard(id, owner);
-
-  res.json(board);
 });
 
 export const deleteBoard = trycatchFunc(async (req, res) => {
