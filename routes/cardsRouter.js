@@ -7,13 +7,12 @@ import * as cardServices from "../controllers/cardControllers.js";
 
 const cardRouter = express.Router();
 
-cardRouter.get("/", authenticate, cardServices.getCards);
+cardRouter.get("/:boardId", authenticate, isValidId, cardServices.getCards);
 
 cardRouter.post(
-  "/:colomnId",
+  "/",
   authenticate,
-  isValidId,
-  validateBody(schemas.cardSchema),
+  validateBody(schemas.createCardSchema),
   cardServices.createCard
 );
 

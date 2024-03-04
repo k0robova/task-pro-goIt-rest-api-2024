@@ -7,8 +7,7 @@ import boardsRouter from "./routes/boardsRouter.js";
 
 import themeRouter from "./routes/themeRouter.js";
 import cardRouter from "./routes/cardsRouter.js";
-import colomnRouter from "./routes/colomnRouter.js";
-
+import columnRouter from "./routes/columnRouter.js";
 
 dotenv.config();
 
@@ -21,9 +20,8 @@ app.use(express.json());
 app.use("/users", authRouter);
 app.use("/boards", boardsRouter);
 app.use("/theme", themeRouter);
-app.use("/colomns", colomnRouter);
+app.use("/columns", columnRouter);
 app.use("/cards", cardRouter);
-
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });

@@ -19,12 +19,19 @@ const cardModel = Schema(
       type: Date,
       required: true,
     },
-    colomnId: {
+    columnId: {
       type: Schema.Types.ObjectId,
-      ref: "Colomn",
+      required: true,
+      ref: "Column",
+    },
+    boardId: {
+      type: Schema.Types.ObjectId,
+      reqiured: true,
+      ref: "Board",
     },
     owner: {
       type: Schema.Types.ObjectId,
+      required: true,
       ref: "User",
     },
   },

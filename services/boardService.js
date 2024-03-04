@@ -1,5 +1,7 @@
 import { HttpError } from "../helpers/HttpError.js";
 import { BoardModel } from "../models/boardModel.js";
+import { CardModel } from "../models/cardModel.js";
+import { ColumnModel } from "../models/columnModel.js";
 
 export const getAllBoards = (owner) => BoardModel.find({ owner });
 
@@ -37,8 +39,12 @@ export const removeBoard = async (owner, boardId) => {
     _id: boardId,
     owner,
   });
+  await ColumnModel.deleteMany({ boardId, owner });
+  await CardModel.deleteMany({ boardId, owner });
 
   if (!deletedBoard) {
     throw HttpError(404);
   }
+
+  return true;
 };

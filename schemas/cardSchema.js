@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const cardSchema = Joi.object({
+export const createCardSchema = Joi.object({
   title: Joi.string().required().label("Title").messages({
     "string.empty": '"Title" cannot be empty',
     "any.required": '"Title" is a required field',
@@ -21,6 +21,14 @@ export const cardSchema = Joi.object({
     "any.required": '"Deadline" is a required field',
     "date.base": '"Deadline" field must be a date',
   }),
+  boardId: Joi.string().required().label("Id").messages({
+    "string.empty": '"Id" cannot be an empty field',
+    "any.required": 'Missing required field "Id"',
+  }),
+  columnId: Joi.string().required().label("Id").messages({
+    "string.empty": '"Id" cannot be an empty field',
+    "any.required": 'Missing required field "Id"',
+  }),
 });
 
 export const updateCardSchema = Joi.object({
@@ -40,5 +48,8 @@ export const updateCardSchema = Joi.object({
     }),
   deadline: Joi.date().label("Deadline").messages({
     "date.base": '"Deadline" field must be a date',
+  }),
+  columnId: Joi.string().label("Id").messages({
+    "string.empty": '"Id" cannot be empty',
   }),
 });
