@@ -8,7 +8,8 @@ import boardsRouter from "./routes/boardsRouter.js";
 import themeRouter from "./routes/themeRouter.js";
 import cardRouter from "./routes/cardsRouter.js";
 import colomnRouter from "./routes/colomnRouter.js";
-
+import swaggerUi from "swagger-ui-express";
+import { swaggerDocument } from "./helpers/swaggerSetup.js";
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ app.use("/boards", boardsRouter);
 app.use("/theme", themeRouter);
 app.use("/colomns", colomnRouter);
 app.use("/cards", cardRouter);
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
