@@ -1,13 +1,13 @@
 import { app } from "./app.js";
 import { connectDB } from "./db/mongoConnect.js";
 
-const { PORT } = process.env;
+const port = process.env.PORT ?? 2025;
 
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => {
-      console.log(`Server is running. Use our API on port: ${PORT}`);
+    app.listen(port, () => {
+      console.log(`Server is running. Use our API on port: ${port}`);
     });
   } catch (error) {
     console.log(error);
