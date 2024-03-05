@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/authRouter.js";
 import boardsRouter from "./routes/boardsRouter.js";
 
-import themeRouter from "./routes/themeRouter.js";
+// import themeRouter from "./routes/themeRouter.js";
 import cardRouter from "./routes/cardsRouter.js";
 import columnRouter from "./routes/columnRouter.js";
 
@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use("/users", authRouter);
 app.use("/boards", boardsRouter);
-app.use("/theme", themeRouter);
+// app.use("/theme", themeRouter);
 app.use("/columns", columnRouter);
 app.use("/cards", cardRouter);
 

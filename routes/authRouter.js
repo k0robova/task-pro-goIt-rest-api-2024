@@ -4,6 +4,7 @@ import * as authControllers from "../controllers/authControllers.js";
 import * as userSchema from "../schemas/userSchema.js";
 import { validateBody } from "../middlewares/validateBody.js";
 import upload from "../middlewares/upload.js";
+import { isValidThemeId } from "../middlewares/isValidId.js";
 const authRouter = express.Router();
 
 authRouter.post(
@@ -31,6 +32,13 @@ authRouter.post(
   authenticate,
   validateBody(userSchema.sendMailSchema),
   authControllers.sendMail
+);
+
+authRouter.patch(
+  "/theme",
+  authenticate,
+  validateBody(userSchema.updateThemeSchema),
+  authControllers.updateUserTheme
 );
 
 export default authRouter;

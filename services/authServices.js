@@ -90,3 +90,12 @@ export const updateUserData = async (userId, updatedData) => {
     console.log(err);
   }
 };
+
+export const updateThemeDB = async (idOwner, theme) => {
+  const updateTheme = await UserModel.findOneAndUpdate(
+    idOwner,
+    { theme },
+    { new: true }
+  );
+  return updateTheme;
+};
