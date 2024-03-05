@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 
+const priorityList = ["Without priority", "Low", "Medium", "High"];
+
 const cardModel = Schema(
   {
     title: {
@@ -12,7 +14,7 @@ const cardModel = Schema(
     },
     priority: {
       type: String,
-      enum: ["Without priority", "Low", "Medium", "High"],
+      enum: priorityList,
       default: "Low",
     },
     deadline: {

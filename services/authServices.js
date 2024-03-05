@@ -5,7 +5,13 @@ import sendgrid from "@sendgrid/mail";
 import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 
-const { SENDGRID_API_KEY, SECRET_KEY } = process.env;
+const {
+  SENDGRID_API_KEY,
+  SECRET_KEY,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
+} = process.env;
 
 export const checkIfUserExists = async (email) =>
   await UserModel.findOne({ email });
@@ -62,14 +68,11 @@ export const sendMail = async (email, comment) => {
   return true;
 };
 
-//   cloud_name: "dna5uh3r0",
-//     api_key: "116844259184423",
-//       api_secret: "aZa8sdqU44SyirU3ogCS0VKQLSY",
-
-const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
-  process.env;
-
 export const saveAvatar = async (tmpUpload, _id) => {
+  //   cloud_name: "dna5uh3r0",
+  //     api_key: "116844259184423",
+  //       api_secret: "aZa8sdqU44SyirU3ogCS0VKQLSY",
+
   cloudinary.config({
     cloud_name: CLOUDINARY_CLOUD_NAME,
     api_key: CLOUDINARY_API_KEY,
