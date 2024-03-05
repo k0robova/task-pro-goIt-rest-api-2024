@@ -57,3 +57,7 @@ export const sendMailSchema = Joi.object({
     "any.required": 'missing required field "email"',
   }),
 });
+
+export const updateThemeSchema = Joi.object({
+  theme: Joi.string().valid("light", "violet", "dark").required(),
+});
