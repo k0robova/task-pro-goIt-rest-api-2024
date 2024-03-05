@@ -6,9 +6,13 @@ const boardShcema = new Schema(
       type: String,
       required: true,
     },
+    icon: {
+      type: String,
+      default: "four-circles",
+    },
     background: {
       type: String,
-      default: "default.jpg",
+      default: "1",
     },
     owner: {
       type: Schema.Types.ObjectId,

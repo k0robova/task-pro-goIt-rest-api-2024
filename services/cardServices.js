@@ -1,8 +1,8 @@
 import { HttpError } from "../helpers/HttpError.js";
 import { CardModel } from "../models/cardModel.js";
 
-export const getAllCards = async (owner) => {
-  const cards = await CardModel.find({ owner });
+export const getAllCards = async (boardId, owner) => {
+  const cards = await CardModel.find({ boardId, owner });
 
   if (!cards) {
     throw HttpError(404);
@@ -11,8 +11,8 @@ export const getAllCards = async (owner) => {
   return cards;
 };
 
-export const addCards = async (colomnId, owner, data) => {
-  const newCard = await CardModel.create({ ...data, owner, colomnId });
+export const addCards = async (owner, data) => {
+  const newCard = await CardModel.create({ ...data, owner });
   return newCard;
 };
 

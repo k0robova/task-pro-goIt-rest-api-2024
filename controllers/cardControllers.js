@@ -4,18 +4,18 @@ import * as cardServices from "../services/cardServices.js";
 
 export const getCards = trycatchFunc(async (req, res) => {
   const { _id: owner } = req.user;
+  const id = req.params.boardId;
 
-  const cards = await cardServices.getAllCards(owner);
+  const cards = await cardServices.getAllCards(id, owner);
 
   res.json(cards);
 });
 
 export const createCard = trycatchFunc(async (req, res) => {
-  const id = req.params.colomnId;
   const { _id: owner } = req.user;
   const { body } = req;
 
-  const newCard = await cardServices.addCards(id, owner, body);
+  const newCard = await cardServices.addCards(owner, body);
 
   res.status(201).json(newCard);
 });

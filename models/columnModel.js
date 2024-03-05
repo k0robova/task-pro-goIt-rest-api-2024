@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const colomnSchema = Schema(
+const columnSchema = Schema(
   {
     title: {
       type: String,
@@ -8,6 +8,7 @@ const colomnSchema = Schema(
     },
     boardId: {
       type: Schema.Types.ObjectId,
+      required: true,
       ref: "Board",
     },
     owner: {
@@ -19,4 +20,4 @@ const colomnSchema = Schema(
   { versionKey: false }
 );
 
-export const ColomnModel = model("Colomn", colomnSchema);
+export const ColumnModel = model("Column", columnSchema);
