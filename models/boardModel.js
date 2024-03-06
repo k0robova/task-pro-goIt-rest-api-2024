@@ -1,5 +1,18 @@
 import { Schema, model } from "mongoose";
 
+const iconList = [
+  "four-circles",
+  "eye",
+  "star",
+  "loading",
+  "puzzle",
+  "container",
+  "logo",
+  "hexagon",
+];
+
+//  const backgroundList =
+
 const boardShcema = new Schema(
   {
     name: {
@@ -9,6 +22,7 @@ const boardShcema = new Schema(
     icon: {
       type: String,
       default: "four-circles",
+      enum: iconList,
     },
     background: {
       type: String,
