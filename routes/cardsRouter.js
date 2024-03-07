@@ -24,6 +24,14 @@ cardRouter.put(
   cardServices.updateCardCtrl
 );
 
+cardRouter.patch(
+  "/:cardId",
+  authenticate,
+  isValidId,
+  validateBody(schemas.updateColumnIdinCardSchema),
+  cardServices.updateColumnIdInCardCtrl
+);
+
 cardRouter.delete("/:cardId", authenticate, isValidId, cardServices.deleteCard);
 
 export default cardRouter;

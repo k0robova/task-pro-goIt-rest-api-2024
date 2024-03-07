@@ -50,3 +50,19 @@ export const updateCardCtrl = trycatchFunc(async (req, res) => {
 
   res.json(updatedCard);
 });
+
+export const updateColumnIdInCardCtrl = trycatchFunc(async (req, res) => {
+  const id = req.params.cardId;
+  const { body } = req;
+  const { _id: owner } = req.user;
+
+  const updateCard = await cardServices.updateColumnIdInCard(id, owner, body);
+
+  if (!updateCard) {
+    throw HttpError(404, `Card with id ${id} not found`);
+  }
+
+  console.log(updateCard);
+
+  res.json(updateCard);
+});

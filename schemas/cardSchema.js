@@ -53,3 +53,10 @@ export const updateCardSchema = Joi.object({
     "string.empty": '"Id" cannot be empty',
   }),
 });
+
+export const updateColumnIdinCardSchema = Joi.object({
+  columnId: Joi.string().required().label("Id").messages({
+    "string.empty": '"Id" cannot be an empty field',
+    "any.required": 'Missing required field "Id"',
+  }),
+});

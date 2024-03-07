@@ -36,3 +36,13 @@ export const removeCard = async (id, owner) => {
 
   return deletedCard;
 };
+
+export const updateColumnIdInCard = async (id, owner, { columnId }) => {
+  const updatedCard = await CardModel.findOneAndUpdate(
+    { _id: id, owner },
+    { $set: { columnId } },
+    { new: true }
+  );
+
+  return updatedCard;
+};
