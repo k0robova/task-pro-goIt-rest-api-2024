@@ -4,6 +4,7 @@ dotenv.config();
 import sendgrid from "@sendgrid/mail";
 import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
+import bcryptjs from "bcryptjs";
 
 const {
   SENDGRID_API_KEY,
@@ -51,8 +52,6 @@ export const logoutUserDB = async (userId, token) => {
   return user;
 };
 
-export const updateUserDB = async (formData) => {};
-
 export const sendMail = async (email, comment) => {
   const helpEmail = {
     from: "grogulandriy1998@gmail.com",
@@ -84,10 +83,15 @@ export const saveAvatar = async (tmpUpload, _id) => {
 
 export const updateUserData = async (userId, updatedData) => {
   try {
+    if (updatedData.password) {
+      updatedData.password = await bcryptjs.hash(updatedData.password, 10);
+    }
+
     const updatedUser = await UserModel.findByIdAndUpdate(userId, updatedData, {
       new: true,
     });
 
+    updatedUser.password = undefined;
     return updatedUser || null;
   } catch (err) {
     console.log(err);
