@@ -37,10 +37,10 @@ export const removeCard = async (id, owner) => {
   return deletedCard;
 };
 
-export const updateColumnIdInCard = async (id, owner, { columnId }) => {
+export const updateColumnIdInCard = async (id, owner, { columnId, index }) => {
   const updatedCard = await CardModel.findOneAndUpdate(
     { _id: id, owner },
-    { $set: { columnId } },
+    { $set: { columnId, index } },
     { new: true }
   );
 

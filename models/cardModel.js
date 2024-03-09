@@ -36,6 +36,10 @@ const cardModel = Schema(
       required: true,
       ref: "User",
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   { versionKey: false }
 );
