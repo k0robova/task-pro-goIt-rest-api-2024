@@ -6,7 +6,7 @@ import { ColumnModel } from "../models/columnModel.js";
 export const getAllBoards = (owner) => BoardModel.find({ owner });
 
 export const addBoard = async (owner, data) => {
-  const exist = await BoardModel.findOne({ name: data.name });
+  const exist = await BoardModel.findOne({ name: data.name, owner });
 
   if (exist) {
     return {
