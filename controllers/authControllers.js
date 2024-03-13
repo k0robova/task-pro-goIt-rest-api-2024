@@ -17,6 +17,7 @@ export const registerUser = trycatchFunc(async (req, res) => {
   res.status(201).json({
     user: { name, email, avatarURL: newUser.avatarURL, theme: newUser.theme },
     token: newUser.token,
+    expiresIn: newUser.expiresIn,
   });
 });
 
@@ -45,6 +46,7 @@ export const loginUser = trycatchFunc(async (req, res) => {
       theme: newUser.theme,
     },
     token: newUser.token,
+    expiresIn: newUser.expiresIn,
   });
 });
 
