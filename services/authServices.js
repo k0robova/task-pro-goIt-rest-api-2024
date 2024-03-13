@@ -31,8 +31,11 @@ export const registerUserDB = async (userData) => {
     { token },
     { new: true }
   );
+  const tokenActive = 5 * 60 * 60 * 1000;
 
-  return newUser;
+  const expiresIn = new Date().getTime() + tokenActive;
+
+  return { ...newUser.toObject(), expiresIn };
 };
 
 export const loginUserDB = async (userId) => {
